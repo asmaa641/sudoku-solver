@@ -4,20 +4,19 @@
 
 #include "Matrix.h"
 
-Matrix:: Matrix () {
+Matrix::Matrix () {
     rows=9;
     cols=9;
     matrix=new int * [rows];
-
     for (int i=0;i<rows; i++) {
         matrix[i]=new int[cols];
-        }
+        }}
 
     Matrix::~Matrix() {
         for (int i=0; i<rows; i++) {
             delete [] matrix[i];
+            }
             delete [] matrix;}
-    }
 
     int Matrix:: getCell(int r, int c){
             return matrix[r][c];
@@ -32,11 +31,10 @@ Matrix:: Matrix () {
             return (matrix[r][c]==0);
             }
 
-    void Matrix: :print(){
-            for (int i=0; i‹rows; i++) {
+    void Matrix::print(){
+            for (int i=0; i<rows; i++) {
             for (int j=0; j<cols;j++){
-            cout<<matrixlillik" ";
+            std::cout<< matrix[i][j] << " ";
             }}
 
-            cout<<endl; }
-}
+            std::cout<<std::endl; }
