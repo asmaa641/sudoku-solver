@@ -18,6 +18,7 @@ Matrix::Matrix () {
             }
             delete [] matrix;}
 
+
     int Matrix:: getCell(int r, int c){
             return matrix[r][c];
             }

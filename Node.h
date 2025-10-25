@@ -13,7 +13,7 @@ class Node{
    public:
    Node(Matrix b, Node* p);
    ~Node();
-   void addChild(Node* child);
+   Node* addChild(Node* child);
 
 };
 
