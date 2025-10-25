@@ -22,8 +22,8 @@ public:
     void setCell(int, int, int);
     bool isEmpty(int, int);
     void print();
-    void reader(string s);
-    Matrix generatePuzzle();
+    Matrix reader(string s);
+    Matrix generatePuzzle(int dif);
 };
 
 
