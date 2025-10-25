@@ -4,9 +4,13 @@
 
 #ifndef SUDOKU_SOLVER_SUDOKUSOLVER_H
 #define SUDOKU_SOLVER_SUDOKUSOLVER_H
-
+#include "Matrix.h"
+#include <iostream>
 
 class SudokuSolver {
+
+    public:
+    bool findEmpty (Matrix& board, int& row, int& col);
 };
 
 

@@ -16,8 +16,8 @@ Node::~Node(){
 }
 
 Node* Node::addChild(int row, int coloumn, int val){
-    if(!child || childCount >= 9) return nullptr;
-    Matrix newBoard = board;
+    if(childCount >= 9) return nullptr;
+    Matrix newBoard = board; 
     newBoard.set(row, coloumn, val);
     Node* child = new Node(newBoard, this);
     children[childCount++] = child;
