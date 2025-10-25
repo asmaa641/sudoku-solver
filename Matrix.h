@@ -6,6 +6,7 @@
 #define SUDOKU_SOLVER_MATRIX_H
 
 #include <iostream>
+#include <string>
 
 class Matrix {
 int rows;
@@ -21,7 +22,8 @@ public:
     void setCell(int, int, int);
     bool isEmpty(int, int);
     void print();
-
+    void reader(string s);
+    Matrix generatePuzzle();
 };
 
 
