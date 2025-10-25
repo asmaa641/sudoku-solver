@@ -3,6 +3,7 @@
 //
 
 #include "Matrix.h"
+#include <cstdlib>
 
 Matrix::Matrix () {
     rows=9;
@@ -58,3 +59,46 @@ Matrix&::Matrix operator=(const Matrix & x){
             }}
 
             std::cout<<std::endl; }
+Matrix Matrix::reader(string s){
+    int row=0;
+    int col=0;
+    Matrix m;
+    string val;
+        for(int i=0;i<s.length;i++){
+            getline(s,val,' ');
+            m.setCell(row,col,val);
+            col++;
+            if(col==8)
+            {row++;
+             col=0;
+            }
+        }
+    return m;
+}
+Matrix Matrix::generatePuzzle(int dif){
+    srand(time(0));
+    Matrix m;
+    if(dif==1){
+    for(int i=0;i<25;i++){
+        int r= 1+(rand()% 9);
+         int c= 1+(rand()% 9);
+        int n= 1+(rand()% 9);
+        setCell(r,c,n);
+    }}
+    else if(dif==2){
+         for(int i=0;i<15;i++){
+        int r= 1+(rand()% 9);
+         int c= 1+(rand()% 9);
+        int n= 1+(rand()% 9);
+        setCell(r,c,n);
+    }
+    }   
+    else {
+         for(int i=0;i<5;i++){
+        int r= 1+(rand()% 9);
+         int c= 1+(rand()% 9);
+        int n= 1+(rand()% 9);
+        setCell(r,c,n);
+    }
+    }    
+}
