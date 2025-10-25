@@ -1,5 +1,5 @@
 
-#include "node.h"
+#include "Node.h"
 
 
 Node::Node(Matrix b, Node* p) : board(b), parent(p), childCount(0) {
