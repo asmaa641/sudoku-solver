@@ -11,7 +11,26 @@ Matrix::Matrix () {
     for (int i=0;i<rows; i++) {
         matrix[i]=new int[cols];
         }}
-
+Matrix::Matrix(const Matrix & x){
+    this->rows=x.rows;
+    this->cols=x.cols;
+    this->matrix = new int*[rows];  
+    for (int i = 0; i < rows; i++) {
+        this->matrix[i] = new int[cols];
+        for (int j = 0; j < cols; j++) {
+            this->matrix[i][j] = x.matrix[i][j];
+        }
+    }
+}
+Matrix&::Matrix operator=(const Matrix & x){
+    for (int i = 0; i < x.rows; i++) {
+        for (int j = 0; j <x.cols; j++) {
+            if(this->matrix[i][j] != x.matrix[i][j])
+                return null;
+        }
+    }
+    return *this;
+}
     Matrix::~Matrix() {
         for (int i=0; i<rows; i++) {
             delete [] matrix[i];
