@@ -14,6 +14,7 @@ int** matrix;
 
 public:
     Matrix();
+    Matrix(const Matrix & x);
     ~Matrix ();
     int getCell(int, int);
     void setCell(int, int, int);
