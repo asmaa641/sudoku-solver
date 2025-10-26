@@ -93,7 +93,7 @@ Matrix Matrix::reader(string s){
         }
     }
     
-if(!m.isValid(row,col,val))
+if(!m.isValid(row,col,stoi(val)))
 { throw runtime_error("Invalid Input, this input does not fit Sudoko rules."); }
     return m;
 }
