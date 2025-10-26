@@ -42,6 +42,7 @@ void Matrix::print(){
         cout<<endl;
     }
 }
+
 Matrix::Matrix(const Matrix & x){
     this->rows=x.rows;
     this->cols=x.cols;
@@ -53,6 +54,7 @@ Matrix::Matrix(const Matrix & x){
         }
     }
 }
+
 Matrix& Matrix::operator=(const Matrix & x){
     if (this == &x) return *this;
     rows = x.rows;
@@ -71,13 +73,17 @@ Matrix Matrix::reader(string s){
     string val;
         for(int i=0;i<s.length();i++){
             if(ss>>val)
-            { m.setCell(row,col,stoi(val));}
+            { m.setCell(row,col,stoi(val));
+            }
                 col++;
                 if(col==8)
                 {row++;
                     col=0;
                 }
         }
+    
+if(!m.isValid(row,col,val))
+{ throw runtime_error("Invalid Input, this input does not fit Sudoko rules."); }
     return m;
 }
 
@@ -89,6 +95,9 @@ Matrix Matrix::generatePuzzle(int dif){
          int c= 0+(rand()% 8);
         int n= 1+(rand()% 9);
         setCell(r,c,n);
+        while(!isValid(r,c,n))
+        {        int n= 1+(rand()% 9);
+                  setCell(r,c,n);}
     }}
     else if(dif==2){
          for(int i=0;i<15;i++){
@@ -96,16 +105,24 @@ Matrix Matrix::generatePuzzle(int dif){
          int c= 0+(rand()% 8);
         int n= 1+(rand()% 9);
         setCell(r,c,n);
+             while(!isValid(r,c,n))
+        {        int n= 1+(rand()% 9);
+                  setCell(r,c,n);}
     }
     }
+    
     else {
          for(int i=0;i<5;i++){
         int r= 0+(rand()% 8);
          int c= 0+(rand()% 8);
         int n= 1+(rand()% 9);
         setCell(r,c,n);
+             while(!isValid(r,c,n))
+        {        int n= 1+(rand()% 9);
+                  setCell(r,c,n);}
     }
     }
+    
     return *this;
 }
 bool Matrix::findEmpty(int& row, int& col){
