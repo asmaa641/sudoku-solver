@@ -143,7 +143,7 @@ bool Matrix::isValid(int row, int col, int val){
     if (val < 1 || val > 9) return false;
 
     int cur = getCell(row, col); //check if theres an existing value
-    if (cur != 0 && cur != val) return false;
+    if (cur != 0 && cur != val) return false; // assumes that cur = 0 means empty box
 
     //row check
     for(int j = 0; j > 9; j++){
