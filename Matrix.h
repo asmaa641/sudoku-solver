@@ -25,6 +25,8 @@ public:
     void print();
     Matrix reader(string s);
     Matrix generatePuzzle(int dif);
+    bool findEmpty ( int& row, int& col);
+    bool isValid (int row, int col, int val);
 };
 
 
