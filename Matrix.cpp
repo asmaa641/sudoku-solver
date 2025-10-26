@@ -129,8 +129,8 @@ bool Matrix::findEmpty(int& row, int& col){
     for(int i = 0; i < 9; i++){
         for(int j = 0; j < 9; j++){
             if(getCell(i, j) == 0){
-                i = row;
-                j = col;
+                row = i;
+                col = j;
                 return true;
             }
         }
