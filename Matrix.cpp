@@ -76,7 +76,7 @@ Matrix Matrix::reader(string s){
             { m.setCell(row,col,stoi(val));
             }
                 col++;
-                if(col==8)
+                if(col==9)
                 {row++;
                     col=0;
                 }
