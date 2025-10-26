@@ -11,8 +11,7 @@
 class SudokuSolver {
 
     public:
-    bool findEmpty (Matrix& board, int& row, int& col);
-    bool isValid (Matrix& board, int row, int col, int val);
+    
     Node solve(Matrix& board);
 };
 
