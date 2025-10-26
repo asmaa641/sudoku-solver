@@ -12,7 +12,11 @@ Matrix::Matrix(){
 
     for(int i=0;i<rows;i++){
         matrix[i]=new int[cols];
+        for (int j=0;j<cols;j++){
+            matrix[i][j]=0;
+        }
     }
+    
 }
 
 Matrix::~Matrix(){
@@ -73,14 +77,21 @@ Matrix Matrix::reader(string s){
     string val;
         for(int i=0;i<s.length();i++){
             if(ss>>val)
-            { m.setCell(row,col,stoi(val));
-            }
+            { m.setCell(row,col,stoi(val)); }
                 col++;
                 if(col==9)
                 {row++;
                     col=0;
                 }
         }
+    
+   
+        for(int i=0;i<rows;i++){
+        for (int j=0;j<cols;j++){
+             if(!getCell(i,j))
+            matrix[i][j]=0;
+        }
+    }
     
 if(!m.isValid(row,col,val))
 { throw runtime_error("Invalid Input, this input does not fit Sudoko rules."); }
@@ -121,6 +132,12 @@ Matrix Matrix::generatePuzzle(int dif){
         {        int n= 1+(rand()% 9);
                   setCell(r,c,n);}
     }
+    }
+        for(int i=0;i<rows;i++){
+        for (int j=0;j<cols;j++){
+             if(!getCell(i,j))
+            matrix[i][j]=0;
+        }
     }
     
     return *this;
