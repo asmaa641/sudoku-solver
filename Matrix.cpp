@@ -99,7 +99,6 @@ if(!m.isValid(row,col,stoi(val)))
 }
 
 Matrix Matrix::generatePuzzle(int dif){
-    srand(time(0));
     if(dif==1){
     for(int i=0;i<25;i++){
         int r= 0+(rand()% 8);

@@ -4,6 +4,7 @@
 #include <iostream>
 #include "Matrix.h"
 #include "SudokuSolver.h"
+class SudokuSolver;
 
 class Node{
    Matrix board;
@@ -15,8 +16,8 @@ class Node{
    public:
    Node(Matrix b, Node* p);
    ~Node();
-   Node* addChild(Node* child);
-   Node* populateChildren();
+   Node* addChild(int row, int col, int val);
+   void populateChildren();
 };
 
 

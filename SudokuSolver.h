@@ -6,6 +6,7 @@
 #define SUDOKU_SOLVER_SUDOKUSOLVER_H
 #include "Matrix.h"
 #include "Node.h"
+class Node;
 #include <iostream>
 
 class SudokuSolver {
