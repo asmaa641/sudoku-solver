@@ -16,10 +16,11 @@ int main() {
     puzzle.print();
 
     SudokuSolver solver;
-    bool solved = solver.solve(puzzle);
-    std::cout << "\nSolved? " << (solved ? "Yes" : "No") << "\n";
-    if (solved) {
+    Node root = solver.solve(puzzle);
+    std::cout << "\nSolved? " << (puzzle.isSolved() ? "Yes" : "No") << "\n";
+    if (puzzle.isSolved()) {
         puzzle.print();
+
     }
     return 0;
 }
