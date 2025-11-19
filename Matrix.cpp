@@ -50,12 +50,20 @@ bool Matrix::isEmpty(int r, int c){
 }
 
 void Matrix::print(){
-    for(int i=0;i<rows;i++){
-        for(int j=0;j<cols;j++){
-            cout<<matrix[i][j]<<" ";
+    for(int i=0;i<9;i++){
+        for(int j=0;j<9;j++){
+            if (matrix[i][j]==0) {
+                cout << "_| ";
+            }
+            else {
+                cout<<matrix[i][j]<<"| ";
+            }
         }
-        cout<<endl;
+        cout<<"Point 1" <<endl;
     }
+
+    cout <<endl<<"Done printing";
+    return;
 }
 
 Matrix::Matrix(const Matrix & x){
@@ -111,7 +119,7 @@ Matrix Matrix::reader(string s){
             if (m.getCell(r,c)!=0) {
                 int v = m.getCell(r,c);
                 m.setCell(r,c,0); // temporarily clear for validation
-                if (!m.isValid(r,c,v)) {
+                if (!m.validCellPlacement(r,c,v)) {
                     // CHANGED: provide an error message
                     std::string msg = "Invalid input: conflict at (" + std::to_string(r) + "," + std::to_string(c) + ") value " + std::to_string(v);
                     throw std::runtime_error(msg);
@@ -151,7 +159,7 @@ Matrix Matrix::generatePuzzle(int dif) {
         if (getCell(r, c) != 0) continue; // already filled, skip
 
         int v = 1 + (std::rand() % 9); // 1..9
-        if (isValid(r, c, v)) {
+        if (validCellPlacement(r, c, v)) {
             setCell(r, c, v);
             ++placed;
             // optional debug:
@@ -183,7 +191,7 @@ bool Matrix::findEmpty(int& row, int& col){
 }
 
 // FIXED: correct loop conditions (previously used > which never iterated)
-bool Matrix::isValid(int row, int col, int val){
+bool Matrix::validCellPlacement(int row, int col, int val){
     if (row < 0 || row >= 9 || col < 0 || col >= 9) return false;
     if (val < 1 || val > 9) return false;
 
@@ -211,7 +219,30 @@ bool Matrix::isValid(int row, int col, int val){
     return true;
 }
 
-bool Matrix::isSolved() { //Nadine: Added to check if the sudoku is solved
+bool Matrix::isValid()  {
+    if (rows != 9 || cols != 9) {
+        return false;
+    }
+
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            // Get the current value in the cell assuming 0 means empty.
+            int current_val = getCell(i, j);
+
+            if (current_val != 0) {
+
+                if (!validCellPlacement(i, j, current_val)) {
+                    return false; // Conflict found, the entire board is invalid.
+                }
+            }
+        }
+    }
+
+    // if all occupied cells pass their respective checks, the board is valid.
+    return true;
+}
+
+bool Matrix::isComplete() { //Nadine: Added to check if the sudoku is solved
     //if there are no empty cell, solved
     for(int i=0;i<9;i++){
         for(int j=0;j<9;j++){

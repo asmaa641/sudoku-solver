@@ -8,6 +8,7 @@
 #include <iostream>
 #include <string>
 using namespace std;
+class Node;
 
 class Matrix {
 int rows;
@@ -26,8 +27,9 @@ public:
     Matrix reader(string s);
     Matrix generatePuzzle(int dif);
     bool findEmpty ( int& row, int& col);
-    bool isValid (int row, int col, int val);
-    bool isSolved();
+    bool validCellPlacement (int row, int col, int val);
+    bool isValid();
+    bool isComplete();
 };
 
 
