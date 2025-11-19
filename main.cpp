@@ -13,11 +13,11 @@ int main() {
     Matrix puzzle;
     puzzle.generatePuzzle(2);
     std::cout << "Generated puzzle:\n";
+
     puzzle.print();
-    cout << "Point in main1";
     Node* ptr;
     Node testNode= Node(puzzle, ptr);
-    cout << "Point in main2";
+
     Node root = SudokuSolver::solve(testNode);
     std::cout << "\nSolved? " << (root.board.isComplete() ? "Yes" : "No") << "\n";
     if (root.board.isComplete()) {

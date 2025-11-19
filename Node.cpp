@@ -7,7 +7,7 @@ Node::Node(Matrix b, Node* p) : board(b), parent(p), childCount(0) {
     for (int i = 0; i < 9; ++i) {
         children[i] = nullptr;
     }
-    populateChildren();
+   //populateChildren();
 }
 
 Node::Node() : children{}, childCount(0) {

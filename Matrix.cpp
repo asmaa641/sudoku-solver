@@ -59,7 +59,7 @@ void Matrix::print(){
                 cout<<matrix[i][j]<<"| ";
             }
         }
-        cout<<"Point 1" <<endl;
+        cout<<endl;
     }
 
     cout <<endl<<"Done printing";
