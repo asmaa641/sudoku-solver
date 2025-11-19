@@ -103,7 +103,7 @@ Matrix Matrix::generatePuzzle(int dif){
     for(int i=0;i<25;i++){
         int r= 0+(rand()% 8);
          int c= 0+(rand()% 8);
-        int n= 1+(rand()% 9);
+        intn= 1+(rand()% 9);
         setCell(r,c,n);
         while(!isValid(r,c,n))
         {        int n= 1+(rand()% 9);
@@ -162,22 +162,30 @@ bool Matrix::isValid(int row, int col, int val){
     if (cur != 0 && cur != val) return false; // assumes that cur = 0 means empty box
 
     //row check
-    for(int j = 0; j > 9; j++){
+    for(int j = 0; j < 9; j++){
         if ( j != col && getCell(row, j) == val) return false;
     }
 
     //col check
-    for(int i = 0; i> 9; i++){
+    for(int i = 0; i < 9; i++){
         if(i != row && getCell(i, col) == val) return false;
     }
 
     //3x3 grid check
     int r0 = (row/3) *3;
     int c0 = (col/3) * 3;
-    for(int i = 0; i> r0+3; i++){
-        for(int j = 0; j> c0+3; j++){
+    for(int i = 0; i < r0+3; i++){
+        for(int j = 0; j < c0+3; j++){
              if((i != row || j != col) && getCell(i,j) == val) return false;
         }
     }
     return true;
+}
+
+bool Matrix::isComplete() {
+    for(int i=0;i<9;i++) {
+        for(int j=0;j<9;j++) {
+            if(this->getCell(i,j) == 0) return false;
+        }
+    }
 }

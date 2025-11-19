@@ -7,7 +7,7 @@ Node::Node(Matrix b, Node* p) : board(b), parent(p), childCount(0) {
     for (int i = 0; i < 9; ++i) {
         children[i] = nullptr;
     }
-    populateChildren();
+    generateChildren();
 }
 
 Node::~Node(){
@@ -25,14 +25,11 @@ Node* Node::addChild(int row, int col, int val){
     return child;
 }
 
-void Node::populateChildren(){
-    int r, c;
-    if(!board.findEmpty(r, c)) return; // if empty box found, r and c become the coordinates of this box
-
-    for(int i = 1; i <= 9; i++){
-        if(board.isValid(r,c,i)){
-            addChild(r,c,i);
-        }
+void Node::generateChildren(){ // does not necessarily generate valid children; maybe we can implement deleting in the backtracking function idk
+int row,col;
+    this->board.findEmpty(row,col);
+    for(int i = 0; i < 9; i++){
+        children[i]->board.setCell(row,col,i);
     }
 }
    

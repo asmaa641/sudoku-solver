@@ -27,6 +27,7 @@ public:
     Matrix generatePuzzle(int dif);
     bool findEmpty ( int& row, int& col);
     bool isValid (int row, int col, int val);
+    bool isComplete();
 };
 
 

@@ -13,7 +13,7 @@ class SudokuSolver {
 
     public:
     
-    Node solve(Matrix& board);
+    Node solve(Node& head);
 };
 
 
