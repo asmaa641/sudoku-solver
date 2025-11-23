@@ -1,28 +1,14 @@
-//
-// Created by Arwa Hassan on 23/10/2025.
-//
+#include "loginpage.h"
+#include <QFile>
+#include <QApplication>
+using namespace std;
 
-#include <iostream>
-#include <ostream>
-#include "Matrix.h"
-#include "SudokuSolver.h"
 
-//Nadine: just trying the code out to see what needs to be fixed, the code will generate error that's normal
-int main() {
-    srand(time(0));
-    Matrix puzzle;
-    puzzle.generatePuzzle(2);
-    std::cout << "Generated puzzle:\n";
 
-    puzzle.print();
-    Node* ptr;
-    Node testNode= Node(puzzle, ptr);
-
-    Node root = SudokuSolver::solve(testNode);
-    std::cout << "\nSolved? " << (root.board.isComplete() ? "Yes" : "No") << "\n";
-    if (root.board.isComplete()) {
-        root.board.print();
-
-    }
-    return 0;
+int main(int argc, char *argv[])
+{
+    QApplication a(argc, argv);
+    loginpage w;
+    w.show();
+    return a.exec();
 }
