@@ -1,5 +1,14 @@
 #include "loginpage.h"
 #include "ui_loginpage.h"
+#include <QStandardPaths>
+#include <QDir>
+
+static QString usersFilePath()
+{
+    QString dir = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+    QDir().mkpath(dir);              // make sure the folder exists
+    return dir + "/users.txt";       // final path: something like .../YourApp/users.txt
+}
 
 loginpage::loginpage(QWidget *parent)
     : QDialog(parent)
@@ -12,7 +21,7 @@ loginpage::loginpage(QWidget *parent)
 
 void loginpage::loadInfo()
 {
-    QFile file(":/new/prefix1/users.txt");
+    QFile file(usersFilePath());
     QTextStream in(&file);
     if(file.open(QIODevice::ReadOnly | QIODevice::Text)){
         while (!file.atEnd()) {
@@ -75,11 +84,10 @@ void loginpage::on_pushButton_login_clicked()
 
 void loginpage::on_pushButton_createAccount_clicked()
 {
-    signuppage *signup = new signuppage();
-    signup->exec();// This function will block until the signup window is closed.
-    signup->show();
+    signuppage signup(this);  // modal dialog with this as parent
+    signup.exec();            // blocks until closed
+
     u.clear();
-    delete signup;
-    loadInfo();
+    loadInfo();               // reload updated users.txt
 }
 

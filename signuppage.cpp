@@ -1,5 +1,14 @@
 #include "signuppage.h"
 #include "ui_signuppage.h"
+#include <QStandardPaths>
+#include <QDir>
+
+static QString usersFilePath()
+{
+    QString dir = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+    QDir().mkpath(dir);              // make sure the folder exists
+    return dir + "/users.txt";       // final path: something like .../YourApp/users.txt
+}
 
 signuppage::signuppage(QWidget *parent)
     : QDialog(parent)
@@ -12,7 +21,7 @@ signuppage::signuppage(QWidget *parent)
 
 void signuppage::loadInfo()
 {
-    QFile file(":/new/prefix1/users.txt");
+    QFile file(usersFilePath());
     QTextStream in(&file);
     if(file.open(QIODevice::ReadOnly | QIODevice::Text)){
         while (!file.atEnd()) {
@@ -34,44 +43,53 @@ void signuppage::loadInfo()
 
 signuppage::~signuppage()
 {
-    QFile file(":/new/prefix1/users.txt");
-    QTextStream out(&file);
-    if(file.open(QIODevice::WriteOnly | QIODevice::Text)){
-        for (Users& user : u) {
-            out<<user.getUsername()<<":"<<user.getPassword();
-        }
-    }
     delete ui;
-
 }
 
 
 void signuppage::on_pushButton_signup_clicked()
 {
-    QString username = ui->lineEdit_username->text();
+    QString username = ui->lineEdit_username->text().trimmed();
     QString password = ui->lineEdit_password->text();
 
-    // Search for user in the vector
-    bool successful = false;
+    if (username.isEmpty() || password.isEmpty()) {
+        QMessageBox::warning(this, "Sign Up failed",
+                             "Username and password cannot be empty.");
+        return;
+    }
+
     bool usernameExists = false;
 
-    for (Users& user : u) {
+    for (Users &user : u) {
         if (user.getUsername() == username) {
             usernameExists = true;
-        }
-        else{
-            successful=true;
+            break;
         }
     }
 
-    if(usernameExists){
-        QMessageBox::warning(this, "SignUp failed", "Username already exist. \n Please try another one");
+    if (usernameExists) {
+        QMessageBox::warning(this, "Sign Up failed",
+                             "Username already exists.\nPlease try another one.");
+        return;
     }
-    if(successful){
-        Users u1(username, password);
-        u.push_back(u1);
-        QMessageBox::information(this,"Successful Account Creation","Your account has been created");
-        this->close();
+
+    // Add user to the in-memory list
+    Users u1(username, password);
+    u.push_back(u1);
+
+    // Append to the file on disk
+    QFile file(usersFilePath());
+    if (file.open(QIODevice::Append | QIODevice::Text)) {
+        QTextStream out(&file);
+        out << username << ":" << password << "\n";  // NOTE the newline
+    } else {
+        QMessageBox::warning(this, "Error",
+                             "Could not save account to file.");
     }
+
+    QMessageBox::information(this, "Successful Account Creation",
+                             "Your account has been created");
+    close();
 }
+
 
