@@ -19,7 +19,6 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     signuppage.cpp \
-    sudoku.cpp \
     users.cpp
 
 HEADERS += \
@@ -29,14 +28,12 @@ HEADERS += \
     loginpage.h \
     mainwindow.h \
     signuppage.h \
-    sudoku.h \
     users.h
 
 FORMS += \
     loginpage.ui \
     mainwindow.ui \
-    signuppage.ui \
-    sudoku.ui
+    signuppage.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
