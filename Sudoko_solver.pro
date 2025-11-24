@@ -14,15 +14,20 @@ QMAKE_LFLAGS_DEBUG -= -framework AGL
 SOURCES += \
     loginpage.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    signuppage.cpp \
+    users.cpp
 
 HEADERS += \
     loginpage.h \
-    mainwindow.h
+    mainwindow.h \
+    signuppage.h \
+    users.h
 
 FORMS += \
     loginpage.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    signuppage.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
