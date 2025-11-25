@@ -15,7 +15,7 @@ signuppage::signuppage(QWidget *parent)
     , ui(new Ui::signuppage)
 {
     ui->setupUi(this);
-   setWindowTitle("Sign Up Page");
+    setWindowTitle("Sign Up Page");
     loadInfo();
 }
 
@@ -29,7 +29,6 @@ void signuppage::loadInfo()
             QStringList parts = line.split(':');
 
             if (parts.size() >= 2) {
-                // Convert QString to std::string
                 Users u1(parts[0], parts[1]);
                 u.push_back(u1);
             }
