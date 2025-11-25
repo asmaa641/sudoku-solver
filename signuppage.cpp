@@ -79,8 +79,10 @@ void signuppage::on_pushButton_signup_clicked()
 
     // Append to the file on disk
     QFile file(usersFilePath());
+    qDebug()<<"right before if";
     if (file.open(QIODevice::Append | QIODevice::Text)) {
         QTextStream out(&file);
+        qDebug()<<"in if";
         out << username << ":" << password << "\n";  // NOTE the newline
     } else {
         QMessageBox::warning(this, "Error",
