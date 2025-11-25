@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QtWidgets/qheaderview.h>
+#include "loginpage.h"
+
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -76,4 +78,12 @@ MainWindow::~MainWindow()
 // }
 //}
 
+
+
+void MainWindow::on_Sign_Out_clicked()
+{
+    loginpage *login = new loginpage(this);  // parent = current window
+    login->show();
+    this->hide();                            // or close()
+}
 

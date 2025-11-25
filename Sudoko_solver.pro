@@ -44,3 +44,5 @@ RESOURCES += \
     file.qrc
 QMAKE_LFLAGS_RELEASE -= -framework AGL
 QMAKE_LFLAGS_DEBUG -= -framework AGL
+
+DISTFILES +=

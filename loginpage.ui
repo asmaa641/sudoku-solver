@@ -2,108 +2,224 @@
 <ui version="4.0">
  <class>loginpage</class>
  <widget class="QDialog" name="loginpage">
-  <property name="enabled">
-   <bool>true</bool>
-  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>990</width>
-    <height>641</height>
+    <width>581</width>
+    <height>429</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Login</string>
   </property>
-  <widget class="QPushButton" name="pushButton_login">
-   <property name="geometry">
-    <rect>
-     <x>520</x>
-     <y>370</y>
-     <width>111</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Login</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton_createAccount">
-   <property name="enabled">
-    <bool>true</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>300</x>
-     <y>370</y>
-     <width>121</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Create Account</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="lineEdit_username">
-   <property name="geometry">
-    <rect>
-     <x>500</x>
-     <y>160</y>
-     <width>113</width>
-     <height>21</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="lineEdit_password">
-   <property name="geometry">
-    <rect>
-     <x>500</x>
-     <y>230</y>
-     <width>113</width>
-     <height>21</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_username">
-   <property name="geometry">
-    <rect>
-     <x>310</x>
-     <y>160</y>
-     <width>111</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Username:</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>310</x>
-     <y>240</y>
-     <width>91</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Password:</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>350</x>
-     <y>320</y>
-     <width>341</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Don't have an account? Sign Up :)</string>
-   </property>
-  </widget>
+  <property name="styleSheet">
+   <string notr="true">QDialog#loginpage {
+    background: qlineargradient(
+        x1:0, y1:0, x2:1, y2:1,
+        stop:0 #ffe4f7,  
+        stop:1 #dbeafe   
+    );
+    font-family: &quot;Segoe UI&quot;, &quot;SF Pro Text&quot;, system-ui;
+}
+
+QLabel {
+
+    color: #4b5563;  
+}
+
+QLabel#label_2 {
+    color: #6b7280;
+    font-size: 10pt;
+}
+
+QLineEdit {
+    padding: 6px 10px;
+    border-radius: 12px;
+    border: 1px solid #f9a8d4;  
+    background-color: #ffffff;
+    color: #374151;
+}
+
+QLineEdit:focus {
+    border: 2px solid #f973ab;   
+    background-color: #fff7fb;
+}
+
+QPushButton#pushButton_login {
+    background-color: #f973ab;   
+    color: #ffffff;
+    border-radius: 16px;
+    padding: 6px 18px;
+    font-weight: 600;
+    border: none;
+}
+
+QPushButton#pushButton_login:hover {
+    background-color: #fb7185;   
+}
+
+QPushButton#pushButton_login:pressed {
+    background-color: #f43f5e;
+}
+
+QPushButton#pushButton_createAccount {
+    background-color: #e0e7ff;   
+    color: #4c1d95;            
+    border-radius: 16px;
+    padding: 6px 14px;
+    border: 1px solid #c4b5fd;
+    font-weight: 500;
+}
+
+QPushButton#pushButton_createAccount:hover {
+    background-color: #c7d2fe;
+}
+
+QPushButton {
+    font-size: 10pt;
+}
+
+QPushButton:focus {
+    outline: none;
+}
+</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="titleLabel">
+     <property name="font">
+      <font>
+       <pointsize>34</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Welcome!</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_animation">
+     <property name="maximumSize">
+      <size>
+       <width>1000</width>
+       <height>1000</height>
+      </size>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+     <property name="margin">
+      <number>7</number>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="subtitleLabel">
+     <property name="font">
+      <font>
+       <pointsize>17</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Sign in to continue to Sudoku Solver</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QFormLayout" name="formLayout">
+     <property name="labelAlignment">
+      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+     </property>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_username">
+       <property name="font">
+        <font>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Username:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="lineEdit_username"/>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label">
+       <property name="font">
+        <font>
+         <pointsize>13</pointsize>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Password:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="lineEdit_password">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="echoMode">
+        <enum>QLineEdit::EchoMode::Password</enum>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="bottomLayout">
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Don't have an account? </string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_createAccount">
+       <property name="text">
+        <string>Create Account</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Orientation::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_login">
+       <property name="text">
+        <string>Login</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
  </widget>
  <resources/>
  <connections/>

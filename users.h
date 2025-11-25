@@ -1,19 +1,23 @@
 #ifndef USERS_H
 #define USERS_H
+
 #include <QString>
-#include <QFile>
-#include <QTextStream>
+
 class Users
 {
-public:
-    Users(QString s, QString p);
-    QString getUsername();
-    QString getPassword();
-
 private:
     QString username;
     QString password;
-    QString level;
+
+public:
+    Users();
+    Users(const QString &u, const QString &p);
+
+    QString getUsername() const;
+    QString getPassword() const;
+
+    void setUsername(const QString &u);
+    void setPassword(const QString &p);
 };
 
 #endif // USERS_H

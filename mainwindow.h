@@ -23,6 +23,8 @@ public:
 private slots:
     //   void onCellClicked(int row, int col);
 
+    void on_Sign_Out_clicked();
+
 private:
     Ui::MainWindow *ui;
     Node * n;

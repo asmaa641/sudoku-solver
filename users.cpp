@@ -1,13 +1,31 @@
 #include "users.h"
 
-Users::Users(QString s, QString p){
-        username=s;
-        password=p;
+Users::Users()
+    : username(), password()
+{
 }
 
-QString Users::getPassword(){
+Users::Users(const QString &u, const QString &p)
+    : username(u), password(p)
+{
+}
+
+QString Users::getUsername() const
+{
+    return username;
+}
+
+QString Users::getPassword() const
+{
     return password;
 }
-QString Users::getUsername(){
-    return username;
+
+void Users::setUsername(const QString &u)
+{
+    username = u;
+}
+
+void Users::setPassword(const QString &p)
+{
+    password = p;
 }

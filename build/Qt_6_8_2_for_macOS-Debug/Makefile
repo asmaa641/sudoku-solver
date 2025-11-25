@@ -59,7 +59,6 @@ SOURCES       = ../../Matrix.cpp \
 		../../main.cpp \
 		../../mainwindow.cpp \
 		../../signuppage.cpp \
-		../../sudoku.cpp \
 		../../users.cpp qrc_file.cpp \
 		moc_loginpage.cpp \
 		moc_mainwindow.cpp \
@@ -71,7 +70,6 @@ OBJECTS       = Matrix.o \
 		main.o \
 		mainwindow.o \
 		signuppage.o \
-		sudoku.o \
 		users.o \
 		qrc_file.o \
 		moc_loginpage.o \
@@ -327,7 +325,6 @@ DIST          = /Qt1/6.8.2/macos/mkspecs/features/spec_pre.prf \
 		../../loginpage.h \
 		../../mainwindow.h \
 		../../signuppage.h \
-		../../sudoku.h \
 		../../users.h ../../Matrix.cpp \
 		../../Node.cpp \
 		../../SudokuSolver.cpp \
@@ -335,7 +332,6 @@ DIST          = /Qt1/6.8.2/macos/mkspecs/features/spec_pre.prf \
 		../../main.cpp \
 		../../mainwindow.cpp \
 		../../signuppage.cpp \
-		../../sudoku.cpp \
 		../../users.cpp
 QMAKE_TARGET  = Sudoko_solver
 DESTDIR       = 
@@ -357,7 +353,7 @@ include /Users/asmaa/Qt1/6.8.2/macos/mkspecs/features/mac/sdk.mk
 first: all
 ####### Build rules
 
-Sudoko_solver.app/Contents/MacOS/Sudoko_solver: ui_loginpage.h ui_mainwindow.h ui_signuppage.h ui_sudoku.h $(OBJECTS)  
+Sudoko_solver.app/Contents/MacOS/Sudoko_solver: ui_loginpage.h ui_mainwindow.h ui_signuppage.h $(OBJECTS)  
 	@test -d Sudoko_solver.app/Contents/MacOS/ || mkdir -p Sudoko_solver.app/Contents/MacOS/
 	$(LINK) $(LFLAGS) -o $(TARGET)  $(OBJECTS) $(OBJCOMP) $(LIBS)
 
@@ -885,9 +881,9 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../file.qrc $(DISTDIR)/
-	$(COPY_FILE) --parents ../../Matrix.h ../../Node.h ../../SudokuSolver.h ../../loginpage.h ../../mainwindow.h ../../signuppage.h ../../sudoku.h ../../users.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../../Matrix.cpp ../../Node.cpp ../../SudokuSolver.cpp ../../loginpage.cpp ../../main.cpp ../../mainwindow.cpp ../../signuppage.cpp ../../sudoku.cpp ../../users.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../../loginpage.ui ../../mainwindow.ui ../../signuppage.ui ../../sudoku.ui $(DISTDIR)/
+	$(COPY_FILE) --parents ../../Matrix.h ../../Node.h ../../SudokuSolver.h ../../loginpage.h ../../mainwindow.h ../../signuppage.h ../../users.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../../Matrix.cpp ../../Node.cpp ../../SudokuSolver.cpp ../../loginpage.cpp ../../main.cpp ../../mainwindow.cpp ../../signuppage.cpp ../../users.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../../loginpage.ui ../../mainwindow.ui ../../signuppage.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -919,6 +915,7 @@ compiler_rcc_clean:
 	-$(DEL_FILE) qrc_file.cpp
 qrc_file.cpp: ../../file.qrc \
 		../../../../Qt1/6.8.2/macos/libexec/rcc \
+		../../cute_loader.gif \
 		../../users.txt
 	/Users/asmaa/Qt1/6.8.2/macos/libexec/rcc -name file --no-zstd ../../file.qrc -o qrc_file.cpp
 
@@ -927,8 +924,18 @@ compiler_moc_header_clean:
 	-$(DEL_FILE) moc_loginpage.cpp moc_mainwindow.cpp moc_signuppage.cpp
 moc_loginpage.cpp: ../../loginpage.h \
 		../../mainwindow.h \
+		../../Node.h \
+		../../Matrix.h \
+		../../SudokuSolver.h \
 		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QMainWindow \
 		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QInputDialog \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/qinputdialog.h \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QMessageBox \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/qmessagebox.h \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QTableWidget \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/qtablewidget.h \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QTableWidgetItem \
 		../../signuppage.h \
 		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/QFile \
 		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/qfile.h \
@@ -936,19 +943,25 @@ moc_loginpage.cpp: ../../loginpage.h \
 		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/qdialog.h \
 		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/QVector \
 		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/qvector.h \
-		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QMessageBox \
-		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/qmessagebox.h \
 		../../users.h \
 		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/QString \
 		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/qstring.h \
-		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/QTextStream \
-		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/qtextstream.h \
 		../../../../Qt1/6.8.2/macos/libexec/moc
 	/Users/asmaa/Qt1/6.8.2/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=16 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/asmaa/Qt1/6.8.2/macos/mkspecs/macx-clang -I/Users/asmaa/dev/sudoku-solver -I/Users/asmaa/Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers -I/Users/asmaa/Qt1/6.8.2/macos/lib/QtGui.framework/Headers -I/Users/asmaa/Qt1/6.8.2/macos/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/16/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/Users/asmaa/Qt1/6.8.2/macos/lib ../../loginpage.h -o moc_loginpage.cpp
 
 moc_mainwindow.cpp: ../../mainwindow.h \
+		../../Node.h \
+		../../Matrix.h \
+		../../SudokuSolver.h \
 		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QMainWindow \
 		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QInputDialog \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/qinputdialog.h \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QMessageBox \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/qmessagebox.h \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QTableWidget \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/qtablewidget.h \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QTableWidgetItem \
 		../../../../Qt1/6.8.2/macos/libexec/moc
 	/Users/asmaa/Qt1/6.8.2/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=16 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/asmaa/Qt1/6.8.2/macos/mkspecs/macx-clang -I/Users/asmaa/dev/sudoku-solver -I/Users/asmaa/Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers -I/Users/asmaa/Qt1/6.8.2/macos/lib/QtGui.framework/Headers -I/Users/asmaa/Qt1/6.8.2/macos/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/16/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/Users/asmaa/Qt1/6.8.2/macos/lib ../../mainwindow.h -o moc_mainwindow.cpp
 
@@ -964,8 +977,6 @@ moc_signuppage.cpp: ../../signuppage.h \
 		../../users.h \
 		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/QString \
 		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/qstring.h \
-		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/QTextStream \
-		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/qtextstream.h \
 		../../../../Qt1/6.8.2/macos/libexec/moc
 	/Users/asmaa/Qt1/6.8.2/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=16 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/asmaa/Qt1/6.8.2/macos/mkspecs/macx-clang -I/Users/asmaa/dev/sudoku-solver -I/Users/asmaa/Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers -I/Users/asmaa/Qt1/6.8.2/macos/lib/QtGui.framework/Headers -I/Users/asmaa/Qt1/6.8.2/macos/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/16/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/Users/asmaa/Qt1/6.8.2/macos/lib ../../signuppage.h -o moc_signuppage.cpp
 
@@ -973,9 +984,9 @@ compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_loginpage.h ui_mainwindow.h ui_signuppage.h ui_sudoku.h
+compiler_uic_make_all: ui_loginpage.h ui_mainwindow.h ui_signuppage.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_loginpage.h ui_mainwindow.h ui_signuppage.h ui_sudoku.h
+	-$(DEL_FILE) ui_loginpage.h ui_mainwindow.h ui_signuppage.h
 ui_loginpage.h: ../../loginpage.ui \
 		../../../../Qt1/6.8.2/macos/libexec/uic
 	/Users/asmaa/Qt1/6.8.2/macos/libexec/uic ../../loginpage.ui -o ui_loginpage.h
@@ -987,10 +998,6 @@ ui_mainwindow.h: ../../mainwindow.ui \
 ui_signuppage.h: ../../signuppage.ui \
 		../../../../Qt1/6.8.2/macos/libexec/uic
 	/Users/asmaa/Qt1/6.8.2/macos/libexec/uic ../../signuppage.ui -o ui_signuppage.h
-
-ui_sudoku.h: ../../sudoku.ui \
-		../../../../Qt1/6.8.2/macos/libexec/uic
-	/Users/asmaa/Qt1/6.8.2/macos/libexec/uic ../../sudoku.ui -o ui_sudoku.h
 
 compiler_rez_source_make_all:
 compiler_rez_source_clean:
@@ -1019,8 +1026,18 @@ SudokuSolver.o: ../../SudokuSolver.cpp ../../SudokuSolver.h \
 
 loginpage.o: ../../loginpage.cpp ../../loginpage.h \
 		../../mainwindow.h \
+		../../Node.h \
+		../../Matrix.h \
+		../../SudokuSolver.h \
 		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QMainWindow \
 		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QInputDialog \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/qinputdialog.h \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QMessageBox \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/qmessagebox.h \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QTableWidget \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/qtablewidget.h \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QTableWidgetItem \
 		../../signuppage.h \
 		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/QFile \
 		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/qfile.h \
@@ -1028,24 +1045,32 @@ loginpage.o: ../../loginpage.cpp ../../loginpage.h \
 		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/qdialog.h \
 		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/QVector \
 		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/qvector.h \
-		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QMessageBox \
-		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/qmessagebox.h \
 		../../users.h \
 		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/QString \
 		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/qstring.h \
-		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/QTextStream \
-		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/qtextstream.h \
 		ui_loginpage.h \
 		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/QStandardPaths \
 		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/qstandardpaths.h \
+		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/QCoreApplication \
+		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/qcoreapplication.h \
 		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/QDir \
 		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/qdir.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o loginpage.o ../../loginpage.cpp
 
 main.o: ../../main.cpp ../../loginpage.h \
 		../../mainwindow.h \
+		../../Node.h \
+		../../Matrix.h \
+		../../SudokuSolver.h \
 		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QMainWindow \
 		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QInputDialog \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/qinputdialog.h \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QMessageBox \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/qmessagebox.h \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QTableWidget \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/qtablewidget.h \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QTableWidgetItem \
 		../../signuppage.h \
 		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/QFile \
 		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/qfile.h \
@@ -1053,21 +1078,38 @@ main.o: ../../main.cpp ../../loginpage.h \
 		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/qdialog.h \
 		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/QVector \
 		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/qvector.h \
-		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QMessageBox \
-		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/qmessagebox.h \
 		../../users.h \
 		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/QString \
 		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/qstring.h \
-		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/QTextStream \
-		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/qtextstream.h \
 		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QApplication \
 		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/qapplication.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../../main.cpp
 
 mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
+		../../Node.h \
+		../../Matrix.h \
+		../../SudokuSolver.h \
 		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QMainWindow \
 		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/qmainwindow.h \
-		ui_mainwindow.h
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QInputDialog \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/qinputdialog.h \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QMessageBox \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/qmessagebox.h \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QTableWidget \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/qtablewidget.h \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QTableWidgetItem \
+		ui_mainwindow.h \
+		../../loginpage.h \
+		../../signuppage.h \
+		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/QFile \
+		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/qfile.h \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QDialog \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/qdialog.h \
+		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/QVector \
+		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/qvector.h \
+		../../users.h \
+		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/QString \
+		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/qstring.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../../mainwindow.cpp
 
 signuppage.o: ../../signuppage.cpp ../../signuppage.h \
@@ -1082,25 +1124,18 @@ signuppage.o: ../../signuppage.cpp ../../signuppage.h \
 		../../users.h \
 		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/QString \
 		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/qstring.h \
-		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/QTextStream \
-		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/qtextstream.h \
 		ui_signuppage.h \
+		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/QCoreApplication \
+		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/qcoreapplication.h \
 		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/QStandardPaths \
 		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/qstandardpaths.h \
 		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/QDir \
 		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/qdir.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o signuppage.o ../../signuppage.cpp
 
-sudoku.o: ../../sudoku.cpp ../../sudoku.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sudoku.o ../../sudoku.cpp
-
 users.o: ../../users.cpp ../../users.h \
 		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/QString \
-		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/qstring.h \
-		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/QFile \
-		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/qfile.h \
-		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/QTextStream \
-		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/qtextstream.h
+		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/qstring.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o users.o ../../users.cpp
 
 qrc_file.o: qrc_file.cpp 
