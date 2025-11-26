@@ -79,13 +79,13 @@ bool Matrix::fillSolutionBacktrack() {//this function will create the whole puzz
 
 
 
-int Matrix::countSolutionsLimit(int limit) {//this is to ensure that each cell can have only 1 possible number to be put in it because we were facing this issue before
+int Matrix::countSolutionsLimit(int limit) {
     Matrix copy = *this;
 
     int r, c;
     if (!copy.findEmpty(r, c)) {
         return 1;
-    }//there is only 1 possible solution of the board
+    }//there is only 1 possible solution of the board then no worries
 
     int solutions = 0;
 
@@ -102,7 +102,7 @@ int Matrix::countSolutionsLimit(int limit) {//this is to ensure that each cell c
         }
     }
     return solutions;
-}
+}//this is to ensure that each cell can have only 1 possible number to be put in it because we were facing the issue before that two numbers work in one place then which one should be picked
 
 int Matrix::getCell(int r, int c){
     return matrix[r][c];
@@ -204,7 +204,7 @@ Matrix Matrix::generatePuzzle(int dif) {
 
     if (!fillSolutionBacktrack()) {
         throw runtime_error("Failed to generate full sudoku solution");
-    }
+    }//we have a full valid solution
 
     int pos[81][2];
     int idx = 0;
@@ -215,7 +215,7 @@ Matrix Matrix::generatePuzzle(int dif) {
             pos[idx][1] = j;
             idx++;
         }
-    }//an array that stores the different positions on the board
+    }//an array that stores the different positions on the board in the following form {row,col}, {row,col}.....
 
     for (int i = 0; i < 81; i++) {
         int j = rand() % 81;
@@ -225,7 +225,7 @@ Matrix Matrix::generatePuzzle(int dif) {
         int tr = r1, tc = c1;
         pos[i][0] = r2; pos[i][1] = c2;
         pos[j][0] = tr; pos[j][1] = tc;
-    }//randomises the order of the cells
+    }//randomises the order of the cells in the array
 
     int currentClues = 81;
 
@@ -240,7 +240,7 @@ Matrix Matrix::generatePuzzle(int dif) {
 
         int sol = countSolutionsLimit(2);//this is so that when we remove a number we have to make sure the board still has one unique solution
 
-        if (sol != 1) {//If there are more than 1 not unique anymore undo the removal and if there is 0 which is not possible then something is wrong
+        if (sol != 1) {//If there are more than 1 not unique anymore undo the removal and if there is 0 which is not possible then something is wrong return the removed number
             setCell(r, c, backup);
         }
         else {
