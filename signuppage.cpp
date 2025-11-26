@@ -52,14 +52,15 @@ void signuppage::loadInfo()
             continue;
 
         QStringList parts = line.split(':');
-        if (parts.size() >= 2) {
+        if (parts.size() >= 3) {
             QString name = parts[0].trimmed();
             QString pass = parts[1].trimmed();
+            int level=parts[2].trimmed().toInt();
 
-            Users user(name, pass);
+            Users user(name, pass,level);
             u.push_back(user);
 
-            qDebug() << "Loaded user:" << name << "password:" << pass;
+            qDebug() << "Loaded user:" << name << "password:" << pass<< "level:" << level;
         }
     }
 
@@ -100,14 +101,14 @@ void signuppage::on_pushButton_signup_clicked()
     }
 
     // Add user to the in-memory list
-    Users u1(username, password);
+    Users u1(username, password,0);
     u.push_back(u1);
 
     // Append to the file on disk
     QFile file(usersFilePath());
     if (file.open(QIODevice::Append | QIODevice::Text)) {
         QTextStream out(&file);
-        out << username << ":" << password << "\n";  // NOTE the newline
+        out << username << ":" << password << ":"<<0<<"\n";  // NOTE the newline
     } else {
         QMessageBox::warning(this, "Error",
                              "Could not save account to file.");

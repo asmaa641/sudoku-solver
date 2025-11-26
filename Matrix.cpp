@@ -30,11 +30,78 @@ Matrix::Matrix(){
 
 }
 
+Matrix::Matrix(const Matrix & x){
+    this->rows=x.rows;
+    this->cols=x.cols;
+    this->matrix = new int*[rows];
+    for (int i = 0; i < rows; i++) {
+        this->matrix[i] = new int[cols];
+        for (int j = 0; j < cols; j++) {
+            this->matrix[i][j] = x.matrix[i][j];
+        }
+    }
+}
+
 Matrix::~Matrix(){
     for(int i=0;i<rows;i++){
         delete [] matrix[i];
     }
     delete [] matrix;
+}
+
+bool Matrix::fillSolutionBacktrack() {//this function will create the whole puzzple and then we can remove an element at a time depending on the difficulty level
+    int r = -1, c = -1;
+
+    if (!findEmpty(r, c)) {
+        return true;
+    }//to check when the board is full
+
+    int digits[9];
+    for (int i = 0; i < 9; i++) digits[i] = i + 1; //this creates an array with the 9 digits
+
+    for (int i = 0; i < 9; i++) {
+        int j = rand() % 9;
+        int temp = digits[i];
+        digits[i] = digits[j];
+        digits[j] = temp;
+    }// and this will shuffle the 9 digits so we have a different board each time
+
+    for (int k = 0; k < 9; k++) {
+        int v = digits[k];
+        if (validCellPlacement(r, c, v)) {
+            setCell(r, c, v);
+            if (fillSolutionBacktrack()) return true;
+            setCell(r, c, 0);
+        }
+    }//this will put the number assuming it is correct and continue, when at same point there becomes a problem then it will backtrack to find where was something added wrong
+    return false;
+}
+
+
+
+int Matrix::countSolutionsLimit(int limit) {//this is to ensure that each cell can have only 1 possible number to be put in it because we were facing this issue before
+    Matrix copy = *this;
+
+    int r, c;
+    if (!copy.findEmpty(r, c)) {
+        return 1;
+    }//there is only 1 possible solution of the board
+
+    int solutions = 0;
+
+    for (int v = 1; v <= 9; v++) {
+
+        if (copy.validCellPlacement(r, c, v)) {//makes a copy so that we do not edit in the actual board
+            Matrix next = copy;
+            next.setCell(r, c, v);
+            solutions += next.countSolutionsLimit(limit - solutions);
+
+            if (solutions >= limit) {
+                return solutions;
+            }
+        }
+    }
+    return solutions;
 }
 
 int Matrix::getCell(int r, int c){
@@ -66,17 +133,6 @@ void Matrix::print(){
     return;
 }
 
-Matrix::Matrix(const Matrix & x){
-    this->rows=x.rows;
-    this->cols=x.cols;
-    this->matrix = new int*[rows];
-    for (int i = 0; i < rows; i++) {
-        this->matrix[i] = new int[cols];
-        for (int j = 0; j < cols; j++) {
-            this->matrix[i][j] = x.matrix[i][j];
-        }
-    }
-}
 
 Matrix& Matrix::operator=(const Matrix & x){ //Nadine: changed it bc of an error
     if (this == &x) return *this;
@@ -132,46 +188,67 @@ Matrix Matrix::reader(string s){
 }
 
 
-
-// CHANGED: generatePuzzle now mutates *this (so calling puzzle.generatePuzzle(2) actually fills puzzle)
-// and it checks isValid BEFORE placing a value. Uses rand()%9.
 Matrix Matrix::generatePuzzle(int dif) {
-    // clear this board first
-    for (int i = 0; i < rows; ++i)
-        for (int j = 0; j < cols; ++j)
-            matrix[i][j] = 0;
+    int clues;
 
-    std::srand(static_cast<unsigned>(std::time(nullptr)));
+    if (dif == 1) clues = 35;
+    else if (dif == 2) clues = 24;
+    else if (dif == 3) clues = 15;
+    else clues = 25;//depends on the difficulty
 
-    int clues = 5;
-    if (dif == 1) clues = 25;
-    else if (dif == 2) clues = 15;
-    else clues = 5;
+    for (int i = 0; i < 9; i++)
+        for (int j = 0; j < 9; j++)
+            setCell(i, j, 0);//empties the entire board first incase
 
-    int placed = 0;
-    int attemptsOverall = 0;
-    const int MAX_OVERALL = 10000; // safety cap
+    srand(time(NULL));//for randomness
 
-    while (placed < clues && attemptsOverall < MAX_OVERALL) {
-        ++attemptsOverall;
-        int r = std::rand() % 9; // 0..8  (FIXED: was rand()%8)
-        int c = std::rand() % 9;
-        if (getCell(r, c) != 0) continue; // already filled, skip
+    if (!fillSolutionBacktrack()) {
+        throw runtime_error("Failed to generate full sudoku solution");
+    }
 
-        int v = 1 + (std::rand() % 9); // 1..9
-        if (validCellPlacement(r, c, v)) {
-            setCell(r, c, v);
-            ++placed;
-            // optional debug:
-            // cout << "Placed " << v << " at (" << r << "," << c << ")\n";
+    int pos[81][2];
+    int idx = 0;
+
+    for (int i = 0; i < 9; i++) {
+        for (int j = 0; j < 9; j++) {
+            pos[idx][0] = i;
+            pos[idx][1] = j;
+            idx++;
+        }
+    }//an array that stores the different positions on the board
+
+    for (int i = 0; i < 81; i++) {
+        int j = rand() % 81;
+        int r1 = pos[i][0], c1 = pos[i][1];
+        int r2 = pos[j][0], c2 = pos[j][1];
+
+        int tr = r1, tc = c1;
+        pos[i][0] = r2; pos[i][1] = c2;
+        pos[j][0] = tr; pos[j][1] = tc;
+    }//randomises the order of the cells
+
+    int currentClues = 81;
+
+    for (int k = 0; k < 81; k++) {//here we will remove in order of the randomized order of cells
+        if (currentClues <= clues) break;
+
+        int r = pos[k][0];
+        int c = pos[k][1];
+
+        int backup = getCell(r, c);
+        setCell(r, c, 0);
+
+        int sol = countSolutionsLimit(2);//this is so that when we remove a number we have to make sure the board still has one unique solution
+
+        if (sol != 1) {//If there are more than 1 not unique anymore undo the removal and if there is 0 which is not possible then something is wrong
+            setCell(r, c, backup);
+        }
+        else {
+            currentClues--;
         }
     }
 
-    if (attemptsOverall >= MAX_OVERALL) {
-        cout << "generatePuzzle: reached max attempts; placed " << placed << " clues\n";
-    }
-
-    return *this; // CHANGED: return this object so caller's puzzle is updated
+    return *this;
 }
 
 

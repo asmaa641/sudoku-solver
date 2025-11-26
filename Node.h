@@ -21,7 +21,7 @@ public:
    ~Node();
    Node* addChild(int row, int col, int val);
    void populateChildren();
-   void generateChildren();
+  // void generateChildren();
 };
 
 

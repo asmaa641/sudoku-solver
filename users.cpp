@@ -1,12 +1,12 @@
 #include "users.h"
 
 Users::Users()
-    : username(), password()
+    : username(), password(),level()
 {
 }
 
-Users::Users(const QString &u, const QString &p)
-    : username(u), password(p)
+Users::Users(const QString &u, const QString &p,const int &l)
+    : username(u), password(p),level(l)
 {
 }
 
@@ -20,6 +20,11 @@ QString Users::getPassword() const
     return password;
 }
 
+int Users::getLevel() const
+{
+    return level;
+}
+
 void Users::setUsername(const QString &u)
 {
     username = u;
@@ -28,4 +33,9 @@ void Users::setUsername(const QString &u)
 void Users::setPassword(const QString &p)
 {
     password = p;
+}
+
+void Users::setLevel(const int &l)
+{
+    level=l;
 }
