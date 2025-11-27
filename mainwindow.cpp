@@ -153,9 +153,14 @@ void MainWindow::onCellClicked(int row, int col)
 {
     bool ok;
     QString currentText = table->item(row, col)->text();
-    if (!currentText.isEmpty()) {
+
+    QTableWidgetItem* item = table->item(row, col);
+    QColor bgColor = item->background().color();
+
+    if (!currentText.isEmpty() &&  bgColor==Qt::lightGray)
+    {
         QMessageBox::information(this, "Not allowed",
-                                 "This cell is already filled and cannot be changed.");
+                                 "This cell is part of the original puzzle!");
         return;
     }//this is to make sure he cannot press an already given spot
 
