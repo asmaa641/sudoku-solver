@@ -39,10 +39,10 @@ public:
         label_info->setGeometry(QRect(170, 120, 371, 31));
         lineEdit_username = new QLineEdit(signuppage);
         lineEdit_username->setObjectName("lineEdit_username");
-        lineEdit_username->setGeometry(QRect(330, 190, 151, 21));
+        lineEdit_username->setGeometry(QRect(330, 190, 151, 31));
         lineEdit_password = new QLineEdit(signuppage);
         lineEdit_password->setObjectName("lineEdit_password");
-        lineEdit_password->setGeometry(QRect(330, 260, 151, 21));
+        lineEdit_password->setGeometry(QRect(330, 260, 151, 31));
         label_2 = new QLabel(signuppage);
         label_2->setObjectName("label_2");
         label_2->setGeometry(QRect(170, 190, 111, 16));

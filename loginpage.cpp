@@ -7,7 +7,6 @@
 
 static QString usersFilePath()
 {
-    // Directory where the .exe / .app binary lives
     QString baseDir = QCoreApplication::applicationDirPath();
     QString dir = baseDir + "/new/prefix1";
 
@@ -42,7 +41,9 @@ loginpage::loginpage(QWidget *parent)
     ui->label_animation->setMinimumSize(scaledSize);
     ui->label_animation->setMaximumSize(scaledSize);
     ui->label_animation->setAlignment(Qt::AlignCenter);
-     ui->label_animation->setScaledContents(true);
+    ui->label_animation->setScaledContents(true);
+    ui->verticalLayout->setAlignment(ui->label_animation, Qt::AlignHCenter);
+
 
 
     ui->label_animation->setMovie(movie);
@@ -67,20 +68,20 @@ void loginpage::loadInfo()
     QTextStream in(&file);
     u.clear();
 
-    while (!in.atEnd()) {  // ✅ use in.atEnd(), not file.atEnd()
+    while (!in.atEnd()) {
         QString line = in.readLine().trimmed();
-        if (line.isEmpty())
-            continue;
+        if (line.isEmpty())   continue;
 
         QStringList parts = line.split(':');
-        if (parts.size() >= 2) {
+        if (parts.size() >= 3) {
             QString name = parts[0].trimmed();
             QString pass = parts[1].trimmed();
+            int level=parts[2].trimmed().toInt();
 
-            Users user(name, pass);
+            Users user(name, pass,level);
             u.push_back(user);
 
-            qDebug() << "Loaded user:" << name << "password:" << pass;
+            qDebug() << "Loaded user:" << name << "password:" << pass<<"level:"<<level;
         }
     }
 
@@ -98,7 +99,7 @@ void loginpage::on_pushButton_login_clicked()
 {
     QString username = ui->lineEdit_username->text().trimmed();
     QString password = ui->lineEdit_password->text();
-
+    int level;
     qDebug() << "Trying login with username =" << username
              << "password =" << password;
 
@@ -113,6 +114,7 @@ void loginpage::on_pushButton_login_clicked()
             usernameExists = true;
             if (user.getPassword() == password) {
                 loginSuccessful = true;
+                level=user.getLevel();
                 break;
             }
         }
@@ -120,7 +122,7 @@ void loginpage::on_pushButton_login_clicked()
 
     if (loginSuccessful) {
         qDebug() << "Login success!";
-        MainWindow *mainpage = new MainWindow();
+        MainWindow *mainpage = new MainWindow(username,level);
         this->hide();
         mainpage->show();
     } else {
@@ -133,13 +135,13 @@ void loginpage::on_pushButton_login_clicked()
         }
         ui->lineEdit_password->clear();
     }
+
 }
 
 void loginpage::on_pushButton_createAccount_clicked()
 {
-    signuppage signup(this);  // modal dialog with this as parent
-    signup.exec();            // blocks until closed
-
+    signuppage signup(this);
+    signup.exec();
     u.clear();
-    loadInfo();               // reload updated users.txt
+    loadInfo();
 }

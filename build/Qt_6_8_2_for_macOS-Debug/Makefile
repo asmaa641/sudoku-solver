@@ -75,7 +75,13 @@ OBJECTS       = Matrix.o \
 		moc_loginpage.o \
 		moc_mainwindow.o \
 		moc_signuppage.o
-DIST          = /Qt1/6.8.2/macos/mkspecs/features/spec_pre.prf \
+DIST          = ../../../../Desktop/Uni/CS \
+		../../2/Mario-Project/Mario/SuperMarioAsmaa/SuperMario \
+		../../2/SuperMario/Cong.mp3 \
+		../../../../Desktop/Uni/CS \
+		../../2/Mario-Project/Mario/SuperMarioAsmaa/SuperMario \
+		../../2/SuperMario/Cong.mp3 \
+		/Qt1/6.8.2/macos/mkspecs/features/spec_pre.prf \
 		/Qt1/6.8.2/macos/mkspecs/features/device_config.prf \
 		/Qt1/6.8.2/macos/mkspecs/common/unix.conf \
 		/Qt1/6.8.2/macos/mkspecs/common/mac.conf \
@@ -936,6 +942,10 @@ moc_loginpage.cpp: ../../loginpage.h \
 		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QTableWidget \
 		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/qtablewidget.h \
 		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QTableWidgetItem \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QLabel \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/qlabel.h \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QGraphicsTextItem \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/qgraphicsitem.h \
 		../../signuppage.h \
 		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/QFile \
 		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/qfile.h \
@@ -962,6 +972,10 @@ moc_mainwindow.cpp: ../../mainwindow.h \
 		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QTableWidget \
 		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/qtablewidget.h \
 		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QTableWidgetItem \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QLabel \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/qlabel.h \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QGraphicsTextItem \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/qgraphicsitem.h \
 		../../../../Qt1/6.8.2/macos/libexec/moc
 	/Users/asmaa/Qt1/6.8.2/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=199711L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=16 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/asmaa/Qt1/6.8.2/macos/mkspecs/macx-clang -I/Users/asmaa/dev/sudoku-solver -I/Users/asmaa/Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers -I/Users/asmaa/Qt1/6.8.2/macos/lib/QtGui.framework/Headers -I/Users/asmaa/Qt1/6.8.2/macos/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/16/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/Users/asmaa/Qt1/6.8.2/macos/lib ../../mainwindow.h -o moc_mainwindow.cpp
 
@@ -1038,6 +1052,10 @@ loginpage.o: ../../loginpage.cpp ../../loginpage.h \
 		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QTableWidget \
 		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/qtablewidget.h \
 		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QTableWidgetItem \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QLabel \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/qlabel.h \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QGraphicsTextItem \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/qgraphicsitem.h \
 		../../signuppage.h \
 		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/QFile \
 		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/qfile.h \
@@ -1054,7 +1072,9 @@ loginpage.o: ../../loginpage.cpp ../../loginpage.h \
 		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/QCoreApplication \
 		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/qcoreapplication.h \
 		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/QDir \
-		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/qdir.h
+		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/qdir.h \
+		../../../../Qt1/6.8.2/macos/lib/QtGui.framework/Headers/QMovie \
+		../../../../Qt1/6.8.2/macos/lib/QtGui.framework/Headers/qmovie.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o loginpage.o ../../loginpage.cpp
 
 main.o: ../../main.cpp ../../loginpage.h \
@@ -1071,6 +1091,10 @@ main.o: ../../main.cpp ../../loginpage.h \
 		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QTableWidget \
 		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/qtablewidget.h \
 		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QTableWidgetItem \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QLabel \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/qlabel.h \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QGraphicsTextItem \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/qgraphicsitem.h \
 		../../signuppage.h \
 		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/QFile \
 		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/qfile.h \
@@ -1098,6 +1122,10 @@ mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
 		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QTableWidget \
 		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/qtablewidget.h \
 		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QTableWidgetItem \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QLabel \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/qlabel.h \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/QGraphicsTextItem \
+		../../../../Qt1/6.8.2/macos/lib/QtWidgets.framework/Headers/qgraphicsitem.h \
 		ui_mainwindow.h \
 		../../loginpage.h \
 		../../signuppage.h \
@@ -1109,7 +1137,8 @@ mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
 		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/qvector.h \
 		../../users.h \
 		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/QString \
-		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/qstring.h
+		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/qstring.h \
+		../../../../Qt1/6.8.2/macos/lib/QtCore.framework/Headers/qdir.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../../mainwindow.cpp
 
 signuppage.o: ../../signuppage.cpp ../../signuppage.h \

@@ -45,4 +45,6 @@ RESOURCES += \
 QMAKE_LFLAGS_RELEASE -= -framework AGL
 QMAKE_LFLAGS_DEBUG -= -framework AGL
 
-DISTFILES +=
+DISTFILES += \
+    ../../Desktop/Uni/CS 2/Mario-Project/Mario/SuperMarioAsmaa/SuperMario 2/SuperMario/Cong.mp3 \
+    ../../Desktop/Uni/CS 2/Mario-Project/Mario/SuperMarioAsmaa/SuperMario 2/SuperMario/Cong.mp3

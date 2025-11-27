@@ -1,12 +1,5 @@
-hi:hello
-hellooo:e
-he:llo
-hii:llo
-asmaaa:a
-hello:hi
-a:a
-h:h
-d:d
-jumana:jj
+Hi:hello:50
+Asmaaa:a:3
+Hello:hi:100
 
-asmaa1:a
+asmaa:hi:0

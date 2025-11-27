@@ -17,8 +17,8 @@
    <widget class="QPushButton" name="Sign_Out">
     <property name="geometry">
      <rect>
-      <x>290</x>
-      <y>340</y>
+      <x>340</x>
+      <y>510</y>
       <width>100</width>
       <height>32</height>
      </rect>
@@ -34,7 +34,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>36</height>
+     <height>33</height>
     </rect>
    </property>
   </widget>

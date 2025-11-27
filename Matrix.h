@@ -20,6 +20,8 @@ public:
     Matrix(const Matrix & x);
     Matrix& operator=(const Matrix & x);
     ~Matrix ();
+    bool fillSolutionBacktrack();
+    int countSolutionsLimit(int limit);
     int getCell(int, int);
     void setCell(int, int, int);
     bool isEmpty(int, int);

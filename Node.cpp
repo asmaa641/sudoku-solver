@@ -29,13 +29,13 @@ Node* Node::addChild(int row, int col, int val){
     children[childCount++] = child;
     return child;
 }
-void Node::generateChildren(){ // does not necessarily generate valid children; maybe we can implement deleting in the backtracking function idk
-    int row,col;
-    this->board.findEmpty(row,col);
-    for(int i = 0; i < 9; i++){
-        children[i]->board.setCell(row,col,i);
-    }
-}
+//void Node::generateChildren(){ // does not necessarily generate valid children; maybe we can implement deleting in the backtracking function idk
+  //  int row,col;
+  //  this->board.findEmpty(row,col);
+  //  for(int i = 0; i < 9; i++){
+   //     children[i]->board.setCell(row,col,i);
+   // }
+//} //this function is unnecessary now
 
 void Node::populateChildren(){
     int r, c;

@@ -6,6 +6,8 @@
 #include <QMessageBox>
 #include <QTableWidget>
 #include <QTableWidgetItem>
+#include <QLabel>
+#include <QGraphicsTextItem>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -18,15 +20,19 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow(QString na,int l,QWidget *parent = nullptr);
     ~MainWindow();
 private slots:
-    //   void onCellClicked(int row, int col);
+     void onCellClicked(int row, int col);
 
     void on_Sign_Out_clicked();
-
 private:
     Ui::MainWindow *ui;
     Node * n;
+    QTableWidget* table;
+    int tries;
+    QString name;
+    int level;
+    QLabel * info;
 };
 #endif // MAINWINDOW_H
