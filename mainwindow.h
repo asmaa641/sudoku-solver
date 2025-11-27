@@ -25,7 +25,9 @@ public:
 private slots:
      void onCellClicked(int row, int col);
 
-    void on_Sign_Out_clicked();
+    void on_signOut_clicked();
+
+    void on_ClearCell_clicked();
 private:
     Ui::MainWindow *ui;
     Node * n;
@@ -34,5 +36,18 @@ private:
     QString name;
     int level;
     QLabel * info;
+
+    struct Move {
+        int row;
+        int col;
+        int oldVal;
+        int newVal;
+    };
+
+    QVector<Move> undoStack;
+    QVector<Move> redoStack;
+
+    int selectedRow = -1;
+    int selectedCol = -1;
 };
 #endif // MAINWINDOW_H

@@ -3,3 +3,4 @@ Asmaaa:a:3
 Hello:hi:100
 
 asmaa:hi:0
+test:t:0

@@ -3,6 +3,8 @@
 #include <QtWidgets/qheaderview.h>
 #include "loginpage.h"
 #include <qdir.h>
+#include <QVector>
+
 
 static QString usersFilePath()
 {
@@ -142,7 +144,37 @@ MainWindow::MainWindow(QString na,int l,QWidget *parent)
         }
     }
     connect(table, &QTableWidget::cellClicked,
-            this, &MainWindow::onCellClicked);}
+            this, &MainWindow::onCellClicked);
+
+
+    QPushButton *clearButton = new QPushButton("Clear Cell", this);
+    // clearButton->setFlat(true);                 // removes raised frame
+    // clearButton->setText("");
+    // clearButton->setIcon(QIcon(":/new/prefix1/clearcell.png"));
+    // clearButton->setIconSize(QSize(56, 56));
+    QPushButton *signOutButton = new QPushButton("Sign out", this);
+    // signOutButton->setFlat(true);                 // removes raised frame
+    // signOutButton->setText("");
+    // signOutButton->setIcon(QIcon(":/new/prefix1/signout.png"));
+    // signOutButton->setIconSize(QSize(56, 56));
+
+    int buttonsTop = 70 + 542 + 10; // 10 pixels undr the table
+    int buttonsLeft = 150; // where the table is left wise
+
+
+    clearButton->setGeometry(buttonsLeft + 240, buttonsTop, 100, 30);
+    signOutButton->setGeometry(buttonsLeft + 360, buttonsTop, 100, 30);
+
+
+    connect(clearButton, &QPushButton::clicked,
+            this, &MainWindow::on_ClearCell_clicked);
+    connect(signOutButton, &QPushButton::clicked,
+            this, &MainWindow::on_signOut_clicked);
+
+
+
+}
+
 
 MainWindow::~MainWindow()
 {
@@ -151,6 +183,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::onCellClicked(int row, int col)
 {
+    selectedRow = row;
+    selectedCol = col;
+
     bool ok;
     QString currentText = table->item(row, col)->text();
 
@@ -169,9 +204,15 @@ void MainWindow::onCellClicked(int row, int col)
     if (!ok) return; // canceled input
 
   if (n->board.validCellPlacement(row, col, num)) {//if valid add the number
-     n->board.setCell(row, col, num);
-     table->item(row, col)->setText(QString::number(num));
-  } else {
+
+        n->board.setCell(row, col, num);
+        table->item(row, col)->setText(QString::number(num));
+
+     }
+
+
+
+   else {
       tries--;
       info->setText("         Welcome " + name +
                     " \n  Life remaining: " + QString::number(tries) +
@@ -194,10 +235,43 @@ void MainWindow::onCellClicked(int row, int col)
 
 
 
-void MainWindow::on_Sign_Out_clicked()
+void MainWindow::on_ClearCell_clicked()
 {
-    loginpage *login = new loginpage(this);  // parent = current window
+    if (selectedRow < 0 || selectedCol < 0)
+        return;
+
+    QTableWidgetItem *item = table->item(selectedRow, selectedCol);
+    if (!item) return;
+
+    if (item->background().color() == Qt::lightGray) {
+        QMessageBox::information(this, "Not allowed",
+                                 "This cell is part of the original puzzle!");
+        return;
+    }
+
+    int oldVal = n->board.getCell(selectedRow, selectedCol);
+    if (oldVal == 0)
+        return;
+
+    Move m;
+    m.row = selectedRow;
+    m.col = selectedCol;
+    m.oldVal = oldVal;
+    m.newVal = 0;
+
+    undoStack.push_back(m);
+    redoStack.clear();
+
+    n->board.setCell(selectedRow, selectedCol, 0);
+    item->setText("");
+}
+
+
+
+void MainWindow::on_signOut_clicked(){
+    loginpage *login = new loginpage(this);
+    this->hide();
     login->show();
-    this->hide();                            // or close()
+
 }
 

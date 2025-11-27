@@ -921,7 +921,9 @@ compiler_rcc_clean:
 	-$(DEL_FILE) qrc_file.cpp
 qrc_file.cpp: ../../file.qrc \
 		../../../../Qt1/6.8.2/macos/libexec/rcc \
+		../../clearcell.png \
 		../../cute_loader.gif \
+		../../signout.png \
 		../../users.txt
 	/Users/asmaa/Qt1/6.8.2/macos/libexec/rcc -name file --no-zstd ../../file.qrc -o qrc_file.cpp
 

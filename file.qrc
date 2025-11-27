@@ -2,5 +2,7 @@
     <qresource prefix="/new/prefix1">
         <file>users.txt</file>
         <file>cute_loader.gif</file>
+        <file>clearcell.png</file>
+        <file>signout.png</file>
     </qresource>
 </RCC>
