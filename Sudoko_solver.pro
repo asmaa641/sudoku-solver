@@ -19,6 +19,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     signuppage.cpp \
+    solutiondialog.cpp \
     users.cpp
 
 HEADERS += \
@@ -28,6 +29,7 @@ HEADERS += \
     loginpage.h \
     mainwindow.h \
     signuppage.h \
+    solutiondialog.h \
     users.h
 
 FORMS += \

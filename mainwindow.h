@@ -28,6 +28,7 @@ private slots:
     void on_signOut_clicked();
 
     void on_ClearCell_clicked();
+    void on_viewSolution_clicked();
 private:
     Ui::MainWindow *ui;
     Node * n;

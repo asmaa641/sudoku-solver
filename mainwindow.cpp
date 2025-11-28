@@ -4,6 +4,8 @@
 #include "loginpage.h"
 #include <qdir.h>
 #include <QVector>
+#include "SudokuSolver.h"
+#include "solutiondialog.h"
 
 
 static QString usersFilePath()
@@ -64,6 +66,7 @@ MainWindow::MainWindow(QString na,int l,QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Sudoku");
     this->setFixedSize(900, 700);
     tries=3;
     name=na;
@@ -129,6 +132,7 @@ MainWindow::MainWindow(QString na,int l,QWidget *parent)
             else
                 table->item(r, c)->setBackground(QColor(255, 255, 255));
         }
+
     }
 
     // Fill puzzle into the table
@@ -139,7 +143,8 @@ MainWindow::MainWindow(QString na,int l,QWidget *parent)
                 QTableWidgetItem* item = table->item(r,c);
                 item->setText(QString::number(val));
                 item->setFlags(Qt::NoItemFlags); // make the cell readonly
-                item->setBackground(Qt::lightGray);
+                item->setBackground(Qt::black);
+                item->setForeground(QBrush(Qt::white));
             }
         }
     }
@@ -158,18 +163,23 @@ MainWindow::MainWindow(QString na,int l,QWidget *parent)
     // signOutButton->setIcon(QIcon(":/new/prefix1/signout.png"));
     // signOutButton->setIconSize(QSize(56, 56));
 
+    QPushButton *viewSolutionButton = new QPushButton("View Solution", this);
+
     int buttonsTop = 70 + 542 + 10; // 10 pixels undr the table
     int buttonsLeft = 150; // where the table is left wise
 
 
     clearButton->setGeometry(buttonsLeft + 240, buttonsTop, 100, 30);
     signOutButton->setGeometry(buttonsLeft + 360, buttonsTop, 100, 30);
+    viewSolutionButton->setGeometry(buttonsLeft + 100, buttonsTop, 100, 30);
 
 
     connect(clearButton, &QPushButton::clicked,
             this, &MainWindow::on_ClearCell_clicked);
     connect(signOutButton, &QPushButton::clicked,
             this, &MainWindow::on_signOut_clicked);
+    connect(viewSolutionButton, &QPushButton::clicked,
+            this, &MainWindow::on_viewSolution_clicked);
 
 
 
@@ -192,7 +202,7 @@ void MainWindow::onCellClicked(int row, int col)
     QTableWidgetItem* item = table->item(row, col);
     QColor bgColor = item->background().color();
 
-    if (!currentText.isEmpty() &&  bgColor==Qt::lightGray)
+    if (!currentText.isEmpty() &&  bgColor==Qt::black)
     {
         QMessageBox::information(this, "Not allowed",
                                  "This cell is part of the original puzzle!");
@@ -242,7 +252,23 @@ void MainWindow::onCellClicked(int row, int col)
   if(n->board.isComplete()){
       level++;
       updateUserLevelInFile(name, level);
-     QMessageBox::information(this,"Game Finished Successfully","Congratulations \n You have aced this game!!");
+      QMessageBox gameComp;
+      gameComp.setText("Game Completed Successfully");
+      gameComp.setInformativeText("Congratulations \n You have aced this game!!");
+      gameComp.setStandardButtons(QMessageBox::Retry | QMessageBox::Close);
+      gameComp.setDefaultButton(QMessageBox::Retry);
+      gameComp.setButtonText(QMessageBox::Retry, "Play again");
+
+      int ret = gameComp.exec();
+      if (ret == QMessageBox::Retry) {
+          MainWindow *newGame = new MainWindow(name, level, nullptr);
+          this->hide();
+          newGame->show();
+      } else {
+          close();
+      }
+     //QMessageBox::information(this,"Game Finished Successfully","Congratulations \n You have aced this game!!");
+
 
       close();
    }
@@ -258,7 +284,7 @@ void MainWindow::on_ClearCell_clicked()
     QTableWidgetItem *item = table->item(selectedRow, selectedCol);
     if (!item) return;
 
-    if (item->background().color() == Qt::lightGray) {
+    if (item->background().color() == Qt::black) {
         QMessageBox::information(this, "Not allowed",
                                  "This cell is part of the original puzzle!");
         return;
@@ -288,5 +314,22 @@ void MainWindow::on_signOut_clicked(){
     this->hide();
     login->show();
 
+}
+
+void MainWindow::on_viewSolution_clicked()
+{
+    Node copy = *n;
+
+    SudokuSolver solver;
+    Node solved = solver.solve(copy);
+
+    if (!solved.board.isComplete()) {
+        QMessageBox::warning(this, "No Solution",
+                             "This puzzle cannot be solved.");
+        return;
+    }
+
+    SolutionDialog dlg(solved.board, this);
+    dlg.exec();   // modal popup
 }
 
