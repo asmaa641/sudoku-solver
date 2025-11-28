@@ -221,14 +221,29 @@ void MainWindow::onCellClicked(int row, int col)
    }
 
   if(tries==0){
-     QMessageBox::critical(this, "Game Failed", "You have finished all your tries \n better luck next time!!");
-      close();
+       QMessageBox gameEnd;
+        gameEnd.setText("Game Failed");
+       gameEnd.setInformativeText("You have finished all your tries \n better luck next time!!");
+        gameEnd.setStandardButtons(QMessageBox::Retry | QMessageBox::Close);
+       gameEnd.setDefaultButton(QMessageBox::Retry);
+        int ret = gameEnd.exec();
+       if (ret == QMessageBox::Retry) {
+           MainWindow *newGame = new MainWindow(name, level, nullptr);
+           this->hide();
+           newGame->show();
+       } else {
+           close();
+       }
+     // QMessageBox::critical(this, "Game Failed", "You have finished all your tries \n better luck next time!!");
+
+
    }
 
   if(n->board.isComplete()){
       level++;
       updateUserLevelInFile(name, level);
      QMessageBox::information(this,"Game Finished Successfully","Congratulations \n You have aced this game!!");
+
       close();
    }
 }
