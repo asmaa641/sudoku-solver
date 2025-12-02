@@ -43,6 +43,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
+    click_sound.qrc \
     file.qrc
 QMAKE_LFLAGS_RELEASE -= -framework AGL
 QMAKE_LFLAGS_DEBUG -= -framework AGL

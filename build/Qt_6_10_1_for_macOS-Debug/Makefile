@@ -59,10 +59,13 @@ SOURCES       = ../../Matrix.cpp \
 		../../main.cpp \
 		../../mainwindow.cpp \
 		../../signuppage.cpp \
-		../../users.cpp qrc_file.cpp \
+		../../solutiondialog.cpp \
+		../../users.cpp qrc_click_sound.cpp \
+		qrc_file.cpp \
 		moc_loginpage.cpp \
 		moc_mainwindow.cpp \
-		moc_signuppage.cpp
+		moc_signuppage.cpp \
+		moc_solutiondialog.cpp
 OBJECTS       = Matrix.o \
 		Node.o \
 		SudokuSolver.o \
@@ -70,11 +73,14 @@ OBJECTS       = Matrix.o \
 		main.o \
 		mainwindow.o \
 		signuppage.o \
+		solutiondialog.o \
 		users.o \
+		qrc_click_sound.o \
 		qrc_file.o \
 		moc_loginpage.o \
 		moc_mainwindow.o \
-		moc_signuppage.o
+		moc_signuppage.o \
+		moc_solutiondialog.o
 DIST          = ../../../../Desktop/Uni/CS \
 		../../2/Mario-Project/Mario/SuperMarioAsmaa/SuperMario \
 		../../2/SuperMario/Cong.mp3 \
@@ -332,6 +338,7 @@ DIST          = ../../../../Desktop/Uni/CS \
 		../../loginpage.h \
 		../../mainwindow.h \
 		../../signuppage.h \
+		../../solutiondialog.h \
 		../../users.h ../../Matrix.cpp \
 		../../Node.cpp \
 		../../SudokuSolver.cpp \
@@ -339,6 +346,7 @@ DIST          = ../../../../Desktop/Uni/CS \
 		../../main.cpp \
 		../../mainwindow.cpp \
 		../../signuppage.cpp \
+		../../solutiondialog.cpp \
 		../../users.cpp
 QMAKE_TARGET  = Sudoko_solver
 DESTDIR       = 
@@ -610,6 +618,7 @@ Makefile: ../../Sudoko_solver.pro ../../../../Qt/6.10.1/macos/mkspecs/features/s
 		../../../../Qt/6.10.1/macos/mkspecs/features/yacc.prf \
 		../../../../Qt/6.10.1/macos/mkspecs/features/lex.prf \
 		../../Sudoko_solver.pro \
+		../../click_sound.qrc \
 		../../file.qrc \
 		../../../../Qt/6.10.1/macos/lib/QtWidgets.framework/Resources/QtWidgets.prl \
 		../../../../Qt/6.10.1/macos/lib/QtGui.framework/Resources/QtGui.prl \
@@ -861,6 +870,7 @@ Makefile: ../../Sudoko_solver.pro ../../../../Qt/6.10.1/macos/mkspecs/features/s
 ../../../../Qt/6.10.1/macos/mkspecs/features/yacc.prf:
 ../../../../Qt/6.10.1/macos/mkspecs/features/lex.prf:
 ../../Sudoko_solver.pro:
+../../click_sound.qrc:
 ../../file.qrc:
 ../../../../Qt/6.10.1/macos/lib/QtWidgets.framework/Resources/QtWidgets.prl:
 ../../../../Qt/6.10.1/macos/lib/QtGui.framework/Resources/QtGui.prl:
@@ -889,9 +899,9 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../../file.qrc $(DISTDIR)/
-	$(COPY_FILE) --parents ../../Matrix.h ../../Node.h ../../SudokuSolver.h ../../loginpage.h ../../mainwindow.h ../../signuppage.h ../../users.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../../Matrix.cpp ../../Node.cpp ../../SudokuSolver.cpp ../../loginpage.cpp ../../main.cpp ../../mainwindow.cpp ../../signuppage.cpp ../../users.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../../click_sound.qrc ../../file.qrc $(DISTDIR)/
+	$(COPY_FILE) --parents ../../Matrix.h ../../Node.h ../../SudokuSolver.h ../../loginpage.h ../../mainwindow.h ../../signuppage.h ../../solutiondialog.h ../../users.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../../Matrix.cpp ../../Node.cpp ../../SudokuSolver.cpp ../../loginpage.cpp ../../main.cpp ../../mainwindow.cpp ../../signuppage.cpp ../../solutiondialog.cpp ../../users.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../../loginpage.ui ../../mainwindow.ui ../../signuppage.ui $(DISTDIR)/
 
 
@@ -919,18 +929,25 @@ check: first
 
 benchmark: first
 
-compiler_rcc_make_all: qrc_file.cpp
+compiler_rcc_make_all: qrc_click_sound.cpp qrc_file.cpp
 compiler_rcc_clean:
-	-$(DEL_FILE) qrc_file.cpp
+	-$(DEL_FILE) qrc_click_sound.cpp qrc_file.cpp
+qrc_click_sound.cpp: ../../click_sound.qrc \
+		../../../../Qt/6.10.1/macos/libexec/rcc \
+		../../mixkit-fast-double-click-on-mouse-275.wav
+	/Users/jojo/Qt/6.10.1/macos/libexec/rcc -name click_sound --no-zstd ../../click_sound.qrc -o qrc_click_sound.cpp
+
 qrc_file.cpp: ../../file.qrc \
 		../../../../Qt/6.10.1/macos/libexec/rcc \
+		../../clearcell.png \
 		../../cute_loader.gif \
+		../../signout.png \
 		../../users.txt
 	/Users/jojo/Qt/6.10.1/macos/libexec/rcc -name file --no-zstd ../../file.qrc -o qrc_file.cpp
 
-compiler_moc_header_make_all: moc_loginpage.cpp moc_mainwindow.cpp moc_signuppage.cpp
+compiler_moc_header_make_all: moc_loginpage.cpp moc_mainwindow.cpp moc_signuppage.cpp moc_solutiondialog.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_loginpage.cpp moc_mainwindow.cpp moc_signuppage.cpp
+	-$(DEL_FILE) moc_loginpage.cpp moc_mainwindow.cpp moc_signuppage.cpp moc_solutiondialog.cpp
 moc_loginpage.cpp: ../../loginpage.h \
 		../../mainwindow.h \
 		../../Node.h \
@@ -996,6 +1013,15 @@ moc_signuppage.cpp: ../../signuppage.h \
 		../../../../Qt/6.10.1/macos/lib/QtCore.framework/Headers/qstring.h \
 		../../../../Qt/6.10.1/macos/libexec/moc
 	/Users/jojo/Qt/6.10.1/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=17 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/jojo/Qt/6.10.1/macos/mkspecs/macx-clang -I/Users/jojo/Downloads/sudoku-solver -I/Users/jojo/Qt/6.10.1/macos/lib/QtWidgets.framework/Headers -I/Users/jojo/Qt/6.10.1/macos/lib/QtGui.framework/Headers -I/Users/jojo/Qt/6.10.1/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.1.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.1.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/jojo/Qt/6.10.1/macos/lib ../../signuppage.h -o moc_signuppage.cpp
+
+moc_solutiondialog.cpp: ../../solutiondialog.h \
+		../../../../Qt/6.10.1/macos/lib/QtWidgets.framework/Headers/QDialog \
+		../../../../Qt/6.10.1/macos/lib/QtWidgets.framework/Headers/qdialog.h \
+		../../../../Qt/6.10.1/macos/lib/QtWidgets.framework/Headers/QTableWidget \
+		../../../../Qt/6.10.1/macos/lib/QtWidgets.framework/Headers/qtablewidget.h \
+		../../Matrix.h \
+		../../../../Qt/6.10.1/macos/libexec/moc
+	/Users/jojo/Qt/6.10.1/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=17 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/jojo/Qt/6.10.1/macos/mkspecs/macx-clang -I/Users/jojo/Downloads/sudoku-solver -I/Users/jojo/Qt/6.10.1/macos/lib/QtWidgets.framework/Headers -I/Users/jojo/Qt/6.10.1/macos/lib/QtGui.framework/Headers -I/Users/jojo/Qt/6.10.1/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.1.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.1.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/jojo/Qt/6.10.1/macos/lib ../../solutiondialog.h -o moc_solutiondialog.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -1141,7 +1167,8 @@ mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
 		../../users.h \
 		../../../../Qt/6.10.1/macos/lib/QtCore.framework/Headers/QString \
 		../../../../Qt/6.10.1/macos/lib/QtCore.framework/Headers/qstring.h \
-		../../../../Qt/6.10.1/macos/lib/QtCore.framework/Headers/qdir.h
+		../../../../Qt/6.10.1/macos/lib/QtCore.framework/Headers/qdir.h \
+		../../solutiondialog.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../../mainwindow.cpp
 
 signuppage.o: ../../signuppage.cpp ../../signuppage.h \
@@ -1165,10 +1192,21 @@ signuppage.o: ../../signuppage.cpp ../../signuppage.h \
 		../../../../Qt/6.10.1/macos/lib/QtCore.framework/Headers/qdir.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o signuppage.o ../../signuppage.cpp
 
+solutiondialog.o: ../../solutiondialog.cpp ../../solutiondialog.h \
+		../../../../Qt/6.10.1/macos/lib/QtWidgets.framework/Headers/QDialog \
+		../../../../Qt/6.10.1/macos/lib/QtWidgets.framework/Headers/qdialog.h \
+		../../../../Qt/6.10.1/macos/lib/QtWidgets.framework/Headers/QTableWidget \
+		../../../../Qt/6.10.1/macos/lib/QtWidgets.framework/Headers/qtablewidget.h \
+		../../Matrix.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o solutiondialog.o ../../solutiondialog.cpp
+
 users.o: ../../users.cpp ../../users.h \
 		../../../../Qt/6.10.1/macos/lib/QtCore.framework/Headers/QString \
 		../../../../Qt/6.10.1/macos/lib/QtCore.framework/Headers/qstring.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o users.o ../../users.cpp
+
+qrc_click_sound.o: qrc_click_sound.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_click_sound.o qrc_click_sound.cpp
 
 qrc_file.o: qrc_file.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_file.o qrc_file.cpp
@@ -1181,6 +1219,9 @@ moc_mainwindow.o: moc_mainwindow.cpp
 
 moc_signuppage.o: moc_signuppage.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_signuppage.o moc_signuppage.cpp
+
+moc_solutiondialog.o: moc_solutiondialog.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_solutiondialog.o moc_solutiondialog.cpp
 
 ####### Install
 

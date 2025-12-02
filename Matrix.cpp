@@ -79,7 +79,7 @@ bool Matrix::fillSolutionBacktrack() {//this function will create the whole puzz
 
 
 
-int Matrix::countSolutionsLimit(int limit) {
+int Matrix::countSolutionsLimit(int limit) {//this function was made with the help of chatgpt
     Matrix copy = *this;
 
     int r, c;
@@ -102,7 +102,8 @@ int Matrix::countSolutionsLimit(int limit) {
         }
     }
     return solutions;
-}//this is to ensure that each cell can have only 1 possible number to be put in it because we were facing the issue before that two numbers work in one place then which one should be picked
+}//this is to ensure that each cell can have only 1 possible number to be put in it
+//because we were facing the issue before that two numbers work in one place then which one should be picked
 
 int Matrix::getCell(int r, int c){
     return matrix[r][c];

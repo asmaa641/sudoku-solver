@@ -8,6 +8,8 @@
 #include "solutiondialog.h"
 
 
+
+
 static QString usersFilePath()
 {
     // Directory where the .exe / .app binary lives
@@ -72,6 +74,7 @@ MainWindow::MainWindow(QString na,int l,QWidget *parent)
     name=na;
     level=l;
     qDebug()<<"This users level: "<<level;
+
 
     n = new Node();
     if(level<10){
@@ -180,8 +183,6 @@ MainWindow::MainWindow(QString na,int l,QWidget *parent)
             this, &MainWindow::on_signOut_clicked);
     connect(viewSolutionButton, &QPushButton::clicked,
             this, &MainWindow::on_viewSolution_clicked);
-
-
 
 }
 
@@ -305,6 +306,7 @@ void MainWindow::on_ClearCell_clicked()
 
     n->board.setCell(selectedRow, selectedCol, 0);
     item->setText("");
+
 }
 
 
