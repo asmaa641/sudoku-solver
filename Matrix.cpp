@@ -194,7 +194,7 @@ Matrix Matrix::generatePuzzle(int dif) {
 
     if (dif == 1) clues = 35;
     else if (dif == 2) clues = 24;
-    else if (dif == 3) clues = 15;
+    else if (dif == 3) clues = 22;
     else clues = 25;//depends on the difficulty
 
     for (int i = 0; i < 9; i++)
