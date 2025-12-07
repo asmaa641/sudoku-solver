@@ -52,3 +52,27 @@ TEST(MatrixSudokuTest, GeneratedPuzzleIsSolvable_MediumAndHard) {
         EXPECT_TRUE(solution.isComplete()) << "Solution (difficulty " << dif << ") is incomplete.";
     }
 }
+TEST(MatrixSudokuTest, ReaderReportsConflictLocation) {
+    std::string input =
+        "5 5 0 0 0 0 0 0 0 "
+        "0 0 0 0 0 0 0 0 0 "
+        "0 0 0 0 0 0 0 0 0 "
+        "0 0 0 0 0 0 0 0 0 "
+        "0 0 0 0 0 0 0 0 0 "
+        "0 0 0 0 0 0 0 0 0 "
+        "0 0 0 0 0 0 0 0 0 "
+        "0 0 0 0 0 0 0 0 0 "
+        "0 0 0 0 0 0 0 0 0";
+
+    try {
+        Matrix m = Matrix().reader(input);
+        FAIL() << "Expected std::runtime_error due to conflict, but none was thrown.";
+    } catch (const std::runtime_error& e) {
+        // You can check that the message starts with "Invalid input: conflict"
+        std::string msg = e.what();
+        EXPECT_NE(msg.find("Invalid input: conflict"), std::string::npos)
+            << "Unexpected error message: " << msg;
+    } catch (...) {
+        FAIL() << "Expected std::runtime_error, but got a different exception type.";
+    }
+}
